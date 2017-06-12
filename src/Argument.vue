@@ -100,7 +100,7 @@
 </template>
 
 <script>
- /* eslint-disable */
+/* eslint-disable no-alert */
 import PannableContainer from './components/Pannable-container';
 import NavBar from './components/NavBar';
 import Card from './components/Card';
@@ -120,7 +120,7 @@ export default {
   name: 'Argument',
   data() {
     return {
-      cardsCollections: cardsCollections,
+      cardsCollections,
       currentArgumentFormStatus: 'creating',
       toBeCreatedCard: {
         type: 'contention',
@@ -128,20 +128,20 @@ export default {
           toId: null,
           type: null,
           top: '100px',
-          left: '100px'
-        }
+          left: '100px',
+        },
       },
       toBeEditedCard: {
-        id: null
+        id: null,
       },
-      counter: counter,
+      counter,
       selected: {
         hovered: 0,
-        clicked: 0
+        clicked: 0,
       },
       jsonFileName: '',
-      fileToLoad: null
-    }
+      fileToLoad: null,
+    };
   },
   components: {
     PannableContainer,
@@ -152,7 +152,7 @@ export default {
     'load-from-json-modal': Modal,
     'about-modal': Modal,
     'empty-app-data-modal': Modal,
-    ArgumentForm
+    ArgumentForm,
   },
   methods: {
     showArgumentForm() {
@@ -170,14 +170,14 @@ export default {
         type: 'contention',
         relation: {
           toId: null,
-          type: null
-        }
+          type: null,
+        },
       });
       this.setArgumentFormTitle('Buat', 'contention');
       this.showModal('createArgumentModal');
     },
     setArgumentFormTitle(currentStatus, cardType) {
-      const formTitle =  currentStatus + ' ' + cardTypeAndTitleMap[cardType];
+      const formTitle = `${currentStatus} ${cardTypeAndTitleMap[cardType]}`;
       this.$refs.argumentForm.setTitle(formTitle);
     },
     showArgumentFormToCreateRelatedCard(args) {
@@ -187,9 +187,9 @@ export default {
         relation: {
           toId: args.toRelatedId,
           type: args.type,
-          top: (parseInt(args.top) + 200).toString() + 'px',
-          left: args.left
-        }
+          top: `${(parseInt(args.top, 10) + 200).toString()}px`,
+          left: args.left,
+        },
       });
 
       if (args.type === 'sub-reason-connector') {
@@ -197,23 +197,23 @@ export default {
         this.cardsCollections.add(subReasonConnectorCard);
         return;
       }
-      
+
       this.setArgumentFormTitle('Buat', args.type);
       this.showModal('createArgumentModal');
     },
     handleCardOnMounted(args) {
-      domConnectorService.makeDraggable(args.id, (event, ui) => {
-        const cardId = parseInt(event.el.id);
-        this.cardsCollections.edit(cardId, { 
-          left: event.finalPos[0].toString() + 'px',
-          top: event.finalPos[1].toString() + 'px'
+      domConnectorService.makeDraggable(args.id, (event) => {
+        const cardId = parseInt(event.el.id, 10);
+        this.cardsCollections.edit(cardId, {
+          left: `${event.finalPos[0].toString()}px`,
+          top: `${event.finalPos[1].toString()}px`,
         });
       });
       if (args.relation !== null) {
         setTimeout(() => {
           domConnectorService.connect(args.id, args.relation.toId, args.relation.type);
           if (args.relation.type === 'sub-reason') {
-            domConnectorService.connect(args.relation.toId, args.id, args.relation.type);    
+            domConnectorService.connect(args.relation.toId, args.id, args.relation.type);
           }
         }, 1000);
       }
@@ -245,7 +245,7 @@ export default {
       this.currentArgumentFormStatus = 'editing';
       this.toBeEditedCard.id = args.id;
       this.$refs.argumentForm.setDataToEdit({
-        content: args.content
+        content: args.content,
       });
       this.setArgumentFormTitle('Ubah', args.type);
       this.showModal('createArgumentModal');
@@ -262,18 +262,21 @@ export default {
       }
     },
     loadAppData(appData) {
-      const cardInstances = appData.cardsData.map((cardData) => new CardModel(cardData));
-      cardInstances.forEach((cardInstance) => this.cardsCollections.add(cardInstance));
+      const cardInstances = appData.cardsData.map(cardData => new CardModel(cardData));
+      cardInstances.forEach(cardInstance => this.cardsCollections.add(cardInstance));
       this.counter.setCounter(appData.currentCounter);
     },
     createCard(content) {
       return new CardModel({
         id: this.counter.getNextCounter(),
         type: this.toBeCreatedCard.type,
-        content: content,
+        content,
         top: this.toBeCreatedCard.type === 'contention' ? '200px' : this.toBeCreatedCard.relation.top,
         left: this.toBeCreatedCard.type === 'contention' ? '200px' : this.toBeCreatedCard.relation.left,
-        relation: this.toBeCreatedCard.relation.toId === null ? null : { type: this.toBeCreatedCard.relation.type, toId: this.toBeCreatedCard.relation.toId }
+        relation: this.toBeCreatedCard.relation.toId === null ? null : {
+          type: this.toBeCreatedCard.relation.type,
+          toId: this.toBeCreatedCard.relation.toId,
+        },
       });
     },
     onArgumentFormModalHide() {
@@ -288,7 +291,7 @@ export default {
     saveToJson() {
       const dataToSave = {
         currentCounter: this.counter.getCurrentCounter(),
-        cardsData: this.cardsCollections.getAll()
+        cardsData: this.cardsCollections.getAll(),
       };
       fileSaverService.saveToJsonFile(dataToSave, this.jsonFileName);
       this.jsonFileName = '';
@@ -299,7 +302,7 @@ export default {
     },
     resetInputFile() {
       this.fileToLoad = null;
-      document.getElementById("inputFile").value = "";
+      document.getElementById('inputFile').value = '';
     },
     emptyAppData() {
       this.cardsCollections.empty();
@@ -330,7 +333,7 @@ export default {
             this.hideModal('loadFromJsonModal');
           }, 300);
         })
-        .catch((error) => {
+        .catch(() => {
           this.resetInputFile();
           alert('Harap memuat file yang sesuai');
         });
@@ -344,13 +347,13 @@ export default {
     emptyAppDataAndHideModal() {
       this.emptyAppData();
       this.hideModal('emptyAppDataModal');
-    }
+    },
   },
   computed: {
     cards() {
       return this.cardsCollections.getAll();
-    }
-  }
+    },
+  },
 };
 </script>
 

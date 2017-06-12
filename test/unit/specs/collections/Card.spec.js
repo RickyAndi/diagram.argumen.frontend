@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-expressions */
 import CardCollections from '@/collections/Cards';
 import CardModel from '@/models/Card';
 
 describe('card collections', () => {
   describe('on first time, its dont have any card', () => {
     it('test 1', () => {
-      expect(CardCollections.getAll()).to.be.empty;
+      const cards = CardCollections.getAll();
+      expect(cards).to.be.empty;
     });
   });
   describe('can add card', () => {
@@ -20,10 +22,10 @@ describe('card collections', () => {
             right: '100px',
             left: '100px',
             type: 'contention',
-            id: 1
+            id: 1,
           };
           expect(() => {
-            CardCollections.add(fakeCard)
+            CardCollections.add(fakeCard);
           }).to.throw.error;
         });
       });
@@ -39,10 +41,10 @@ describe('card collections', () => {
             right: '100px',
             left: '100px',
             type: 'contention',
-            relatedToId: 2
-          }
+            relatedToId: 2,
+          };
           const realCard = new CardModel(cardData);
-          
+
           expect(() => {
             CardCollections.add(realCard);
           }).to.not.throw.error;
@@ -54,13 +56,13 @@ describe('card collections', () => {
             right: '100px',
             left: '100px',
             type: 'contention',
-            relatedToId: 2
-          }
+            relatedToId: 2,
+          };
           const realCard = new CardModel(cardData);
           CardCollections.add(realCard);
-          
+
           expect(CardCollections.getAll()).to.not.be.empty;
-        })
+        });
       });
     });
   });
@@ -78,7 +80,7 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
+              relatedToId: 2,
             },
             {
               id: 2,
@@ -86,11 +88,11 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
-            }
+              relatedToId: 2,
+            },
           ];
-          const cardInstances = cardsData.map((cardData) => new CardModel(cardData));
-          cardInstances.forEach((cardInstance) => CardCollections.add(cardInstance));
+          const cardInstances = cardsData.map(cardData => new CardModel(cardData));
+          cardInstances.forEach(cardInstance => CardCollections.add(cardInstance));
           expect(CardCollections.getAll().length).to.equal(cardsData.length);
         });
       });
@@ -108,7 +110,7 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
+              relatedToId: 2,
             },
             {
               id: 2,
@@ -116,12 +118,12 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
-            }
+              relatedToId: 2,
+            },
           ];
-          const cardInstances = cardsData.map((cardData) => new CardModel(cardData));
-          cardInstances.forEach((cardInstance) => CardCollections.add(cardInstance));
-          
+          const cardInstances = cardsData.map(cardData => new CardModel(cardData));
+          cardInstances.forEach(cardInstance => CardCollections.add(cardInstance));
+
           const cardToTest = CardCollections.getOne(cardsData[0].id);
           expect(cardToTest.content).to.equal(cardsData[0].content);
         });
@@ -129,7 +131,7 @@ describe('card collections', () => {
     });
     describe('getIndex()', () => {
       describe('can get card index from id', () => {
-        after(() =>{
+        after(() => {
           CardCollections.empty();
         });
         it('test 1', () => {
@@ -140,7 +142,7 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
+              relatedToId: 2,
             },
             {
               id: 2,
@@ -148,12 +150,12 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
-            }
+              relatedToId: 2,
+            },
           ];
-          const cardInstances = cardsData.map((cardData) => new CardModel(cardData));
-          cardInstances.forEach((cardInstance) => CardCollections.add(cardInstance));
-          
+          const cardInstances = cardsData.map(cardData => new CardModel(cardData));
+          cardInstances.forEach(cardInstance => CardCollections.add(cardInstance));
+
           const cardIndex = CardCollections.getIndex(cardsData[0].id);
           expect(cardIndex).to.equal(0);
         });
@@ -163,7 +165,8 @@ describe('card collections', () => {
   describe('can edit card', () => {
     describe('edit()', () => {
       describe('can edit card provided by card id and data', () => {
-        let cardData, cardDataForEdit;
+        let cardData;
+        let cardDataForEdit;
 
         after(() => {
           CardCollections.empty();
@@ -176,14 +179,14 @@ describe('card collections', () => {
             right: '100px',
             left: '100px',
             type: 'contention',
-            relatedToId: 2
+            relatedToId: 2,
           };
           cardDataForEdit = {
             content: 'aku adalah anak gembala',
             right: '140px',
             left: '120px',
             type: 'premise',
-          }
+          };
           const newCard = new CardModel(cardData);
           CardCollections.add(newCard);
         });
@@ -211,7 +214,7 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
+              relatedToId: 2,
             },
             {
               id: 2,
@@ -219,11 +222,11 @@ describe('card collections', () => {
               right: '100px',
               left: '100px',
               type: 'contention',
-              relatedToId: 2
-            }
+              relatedToId: 2,
+            },
           ];
-          const cardInstances = cardsData.map((cardData) => new CardModel(cardData));
-          cardInstances.forEach((cardInstance) => CardCollections.add(cardInstance));
+          const cardInstances = cardsData.map(cardData => new CardModel(cardData));
+          cardInstances.forEach(cardInstance => CardCollections.add(cardInstance));
         });
 
         it('test 1', () => {
