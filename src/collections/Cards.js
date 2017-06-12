@@ -1,6 +1,5 @@
- /* eslint-disable */
-import Card from '../models/Card';
 import { findIndex, propEq } from 'ramda';
+import Card from '../models/Card';
 
 export default {
   cards: [],
@@ -8,7 +7,7 @@ export default {
     return this.cards;
   },
   getOne(id) {
-    return this.cards.find((card) => card.id === id);
+    return this.cards.find(card => card.id === id);
   },
   getIndex(id) {
     return findIndex(propEq('id', id))(this.cards);
@@ -28,15 +27,22 @@ export default {
     this.cards.splice(0, this.cards.length);
   },
   canCardBeRemoved(id) {
-    const someHaveRelationToThisId = this.cards.some((card) => card.relation === null ? false : card.relation.toId === id);
-    return someHaveRelationToThisId ? false : true;
+    const someHaveRelationToThisId = this.cards.some(
+      (card) => {
+        if (card.relation === null) {
+          return false;
+        }
+        return card.relation.toId === id;
+      },
+    );
+    return !someHaveRelationToThisId;
   },
   removeCard(id) {
     const indexToRemoved = this.getIndex(id);
     this.cards.splice(indexToRemoved, 1);
   },
   getRelatedId(id) {
-    const cardThatRelatedToThisId = this.cards.find((card) => card.id === id);
+    const cardThatRelatedToThisId = this.cards.find(card => card.id === id);
     return cardThatRelatedToThisId.id;
-  }
-}
+  },
+};

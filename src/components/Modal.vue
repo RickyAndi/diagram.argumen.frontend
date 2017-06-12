@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  /* eslint-disable */
   import { Modal } from 'bootstrap.native';
   import ifEqualReturnOtherwise from '../utils/ifEqualReturnOtherwise';
 
@@ -28,18 +27,18 @@
     props: {
       options: {
         type: Object,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
-      }
+      };
     },
     methods: {
       show() {
         (new Modal(this.$el, {
           backdrop: this.normalizedOptions('backdrop'),
-          keyboard: this.normalizedOptions('keyboard')
+          keyboard: this.normalizedOptions('keyboard'),
         })).show();
       },
       hide() {
@@ -54,27 +53,31 @@
           withHeader: true,
           backdrop: null,
           keyboard: true,
-          modalSize: 'medium'
+          modalSize: 'medium',
         };
 
-        return ifEqualReturnOtherwise(this.options[optionName], undefined, otherwiseValue[optionName]);
-      }
+        return ifEqualReturnOtherwise(
+          this.options[optionName],
+          undefined,
+          otherwiseValue[optionName],
+        );
+      },
     },
     computed: {
       modalSize() {
         return {
           'modal-lg': this.normalizedOptions('modalSize') === 'large',
           'modal-sm': this.normalizedOptions('modalSize') === 'small',
-          'modal-md': this.normalizedOptions('modalSize') === 'medium'
+          'modal-md': this.normalizedOptions('modalSize') === 'medium',
         };
-      }
+      },
     },
     mounted() {
       this.$el.addEventListener('hidden.bs.modal', () => {
         this.onHidden();
       });
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

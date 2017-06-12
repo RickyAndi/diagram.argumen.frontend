@@ -15,7 +15,6 @@
 </template>
 
 <script>
-  /* eslint-disable */
   export default {
     name: 'navbar',
     methods: {
@@ -40,11 +39,8 @@
       removeAllData() {
         this.$emit('on-remove-all-data');
       },
-      showAbout() {
-        this.$emit('on-show-about');
-      }
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>

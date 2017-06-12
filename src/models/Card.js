@@ -1,4 +1,3 @@
- /* eslint-disable */
 class Card {
   constructor(data) {
     this.id = data.id;
@@ -6,15 +5,15 @@ class Card {
     this.left = data.left;
     this.top = data.top;
     this.type = data.type;
-    
+
     if (data.relation === undefined || data.relation === null) {
       this.relation = null;
       return;
     }
-    
+
     this.relation = {
       type: data.relation.type,
-      toId: data.relation.toId
+      toId: data.relation.toId,
     };
   }
 }

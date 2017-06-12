@@ -1,8 +1,7 @@
- /* eslint-disable */
 export default {
   counter: 0,
   getNextCounter() {
-    this.counter++;
+    this.counter = this.counter + 1;
     return this.counter;
   },
   setCounter(startNumber) {
@@ -10,5 +9,5 @@ export default {
   },
   getCurrentCounter() {
     return this.counter;
-  }
-}
+  },
+};

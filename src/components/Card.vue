@@ -61,7 +61,6 @@
 </template>
 
 <script>
-  /* eslint-disable */
   import Card from '../models/Card';
   import cardTypeAndTitleMap from '../mappers/cardTypeAndTitle';
 
@@ -70,38 +69,38 @@
     props: {
       card: {
         type: Card,
-        required: true
+        required: true,
       },
       cardHoveredId: {
         type: Number,
-        required: true
+        required: true,
       },
       cardSelectedId: {
         type: Number,
-        required: true
-      }
+        required: true,
+      },
     },
     data() {
       return {
-      }
+      };
     },
     computed: {
       classObject() {
         return {
-          'hovered': this.card.id === this.cardHoveredId,
-          'selected': this.card.id === this.cardSelectedId,
+          hovered: this.card.id === this.cardHoveredId,
+          selected: this.card.id === this.cardSelectedId,
           'panel-default': this.card.type === 'contention',
           'panel-success': this.card.type === 'sub-reason-connector' || this.card.type === 'reason' || this.card.type === 'sub-reason',
           'panel-danger': this.card.type === 'objection',
-          'panel-warning': this.card.type === 'rebuttal'
+          'panel-warning': this.card.type === 'rebuttal',
         };
       },
       styleObject() {
         return {
           left: this.card.left,
           top: this.card.top,
-          width: this.isSubAlasanConnector ? '100px' : '300px'
-        }
+          width: this.isSubAlasanConnector ? '100px' : '300px',
+        };
       },
       cardTitle() {
         return cardTypeAndTitleMap[this.card.type] === undefined ? '' : cardTypeAndTitleMap[this.card.type];
@@ -111,25 +110,25 @@
       },
       isSubAlasanConnector() {
         return this.card.type === 'sub-reason-connector';
-      }
+      },
     },
     methods: {
       createRelationCard(type) {
         this.$emit('on-create-relation-card', {
-          type: type,
+          type,
           toRelatedId: this.card.id,
           top: this.card.top,
-          left: this.card.left
+          left: this.card.left,
         });
       },
       onCardMouseOver() {
         this.$emit('on-card-hovered', {
-          id: this.card.id
+          id: this.card.id,
         });
       },
       onCardClicked() {
         this.$emit('on-card-clicked', {
-          id: this.card.id
+          id: this.card.id,
         });
       },
       onCardMouseLeave() {
@@ -137,31 +136,31 @@
       },
       viewThisCard() {
         this.$emit('on-view-card', {
-          id: this.card.id
+          id: this.card.id,
         });
       },
       deleteThisCard() {
         this.$emit('on-delete-card', {
           id: this.card.id,
           relatedToId: this.card.relation === null ? null : this.card.relation.toId,
-          type: this.card.type
+          type: this.card.type,
         });
       },
       changeThisCard() {
         this.$emit('on-change-card', {
           id: this.card.id,
           content: this.card.content,
-          type: this.card.type
+          type: this.card.type,
         });
-      }
+      },
     },
     mounted() {
       this.$emit('on-mounted', {
         id: this.card.id,
-        relation: this.card.relation
+        relation: this.card.relation,
       });
-    }
-  }
+    },
+  };
 </script>
 
 <style scoped>
