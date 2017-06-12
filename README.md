@@ -1,6 +1,12 @@
-# form
+# Diagram Argumen
 
-> A Vue.js project
+> Sebuah aplikasi sederhana untuk membuat diagram argumen di browser, anda juga bisa menyimpan diagram anda dalam bentuk file json, dan anda bisa me-load file json tersebu. masih banyak membutuhkan peningkatan dalam fitur dan kode
+
+> A simple argument mapping app, you can export your work as json file, and you can load that file, still need more improvement
+
+> the user interface is in indonesian, will make it multi language soon.
+
+> demo, click [this](https://rickyandi.github.io)
 
 ## Build Setup
 
