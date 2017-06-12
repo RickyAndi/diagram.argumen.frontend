@@ -92,7 +92,7 @@
         <div class="col-md-12 about">
           <h3><strong>Diagram Argumen</strong></h3>
           <p>Aplikasi sederhana untuk membuat diagram argumen</p>
-          <p><a href="htt">source code</a></p>
+          <p><a href="https://github.com/RickyAndi/diagram.argumen.frontend">source code</a></p>
         </div>
       </div>
     </about-modal>
