@@ -19,7 +19,6 @@
     "jquery": "^3.2.1",
     "jsplumb": "^2.4.2",
     "ramda": "^0.24.1",
-    "vee-validate": "^2.0.0-rc.5",
     "vue": "^2.3.3"
   },
   "devDependencies": {
