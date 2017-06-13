@@ -14,8 +14,9 @@ export default {
   },
   edit(id, data) {
     const cardIndexToBeEdited = this.getIndex(id);
-    const newCard = new Card(Object.assign(this.cards[cardIndexToBeEdited], data));
-    this.cards[cardIndexToBeEdited] = newCard;
+    Object.keys(data).forEach((key) => {
+      this.cards[cardIndexToBeEdited][key] = data[key];
+    });
   },
   add(card) {
     if (!(card instanceof Card)) {
